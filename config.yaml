@@ -1,0 +1,11 @@
+gateways:
+  md:
+    connection:
+      type: motherduck
+      database: my_db
+
+default_gateway: md
+
+model_defaults:
+  dialect: duckdb
+  start: 2024-12-04

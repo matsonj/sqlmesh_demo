@@ -1,0 +1,3 @@
+.cache/*
+logs/*
+macros/__pycache__/*
