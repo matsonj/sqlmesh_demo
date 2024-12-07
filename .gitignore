@@ -2,3 +2,4 @@
 logs/*
 macros/__pycache__/*
 data/*
+.dlt/*
