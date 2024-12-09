@@ -1,11 +1,11 @@
 gateways:
-  md:
+  local:
     connection:
       type: motherduck
-      database: my_db
+      database: dlt_test_db
 
-default_gateway: md
+default_gateway: local
 
 model_defaults:
   dialect: duckdb
-  start: 2024-12-04
+  start: 2024-12-08
