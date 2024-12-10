@@ -1,24 +1,23 @@
 MODEL (
   name stock_data_sqlmesh.incremental_stock_history,
   kind INCREMENTAL_BY_TIME_RANGE (
-    time_column _dlt_load_time,
+    time_column _dlt_load_time
   ),
-  grain (date, symbol),
+  grain (date, symbol)
 );
 
 SELECT
-  CAST(date AS TEXT) AS date,
-  CAST(open AS DOUBLE) AS open,
-  CAST(high AS DOUBLE) AS high,
-  CAST(low AS DOUBLE) AS low,
-  CAST(close AS DOUBLE) AS close,
-  CAST(adj_close AS DOUBLE) AS adj_close,
-  CAST(volume AS BIGINT) AS volume,
-  CAST(symbol AS TEXT) AS symbol,
-  CAST(_dlt_load_id AS TEXT) AS _dlt_load_id,
-  CAST(_dlt_id AS TEXT) AS _dlt_id,
-  TO_TIMESTAMP(CAST(_dlt_load_id AS DOUBLE)) as _dlt_load_time
-FROM
-  stock_data.stock_history
+  date::TEXT AS date,
+  open::DOUBLE AS open,
+  high::DOUBLE AS high,
+  low::DOUBLE AS low,
+  close::DOUBLE AS close,
+  adj_close::DOUBLE AS adj_close,
+  volume::BIGINT AS volume,
+  symbol::TEXT AS symbol,
+  _dlt_load_id::TEXT AS _dlt_load_id,
+  _dlt_id::TEXT AS _dlt_id,
+  TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS _dlt_load_time
+FROM stock_data.stock_history
 WHERE
-  TO_TIMESTAMP(CAST(_dlt_load_id AS DOUBLE)) BETWEEN @start_ds AND @end_ds
+  TO_TIMESTAMP(_dlt_load_id::DOUBLE) BETWEEN @start_ds AND @end_ds
