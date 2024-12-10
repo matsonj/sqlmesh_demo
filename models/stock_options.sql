@@ -1,9 +1,19 @@
 MODEL (
-  name stock_data_sqlmesh.incremental_stock_options,
-  kind INCREMENTAL_BY_TIME_RANGE (
-    time_column _dlt_load_time
+  name interim.stock_options,
+  kind SCD_TYPE_2_BY_TIME (
+    unique_key contract_symbol,
+    updated_at_name _dlt_load_time
   ),
-  grain (contract_symbol, strike, type, expiration, symbol)
+  grain (contract_symbol, strike, type, expiration, symbol),
+  audits (
+    UNIQUE_VALUES(columns = (
+      contract_symbol
+    )),
+    NOT_NULL(columns = (
+      contract_symbol
+    ))
+  ),
+  cron '@daily'
 );
 
 SELECT
@@ -28,5 +38,3 @@ SELECT
   volume::DOUBLE AS volume,
   TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS _dlt_load_time
 FROM stock_data.stock_options
-WHERE
-  TO_TIMESTAMP(_dlt_load_id::DOUBLE) BETWEEN @start_ds AND @end_ds

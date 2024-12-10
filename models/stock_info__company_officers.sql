@@ -1,8 +1,15 @@
 MODEL (
-  name stock_data_sqlmesh.incremental_stock_info__company_officers,
-  kind INCREMENTAL_BY_TIME_RANGE (
-    time_column _dlt_load_time
-  )
+  name interim.stock_info__company_officers,
+  kind SCD_TYPE_2_BY_TIME (
+    unique_key _dlt_id,
+    updated_at_name _dlt_load_time
+  ),
+  grain (symbol, name),
+  audits (
+    UNIQUE_COMBINATION_OF_COLUMNS(columns := (name, symbol)),
+    NOT_NULL(columns = (name, symbol))
+  ),
+  cron '@daily'
 );
 
 SELECT
@@ -15,12 +22,9 @@ SELECT
   CO.total_pay::BIGINT AS total_pay,
   CO.exercised_value::BIGINT AS exercised_value,
   CO.unexercised_value::BIGINT AS unexercised_value,
-  CO._dlt_parent_id::TEXT AS _dlt_parent_id,
-  CO._dlt_list_idx::BIGINT AS _dlt_list_idx,
+  SI.symbol::TEXT AS symbol,
   CO._dlt_id::TEXT AS _dlt_id,
   TO_TIMESTAMP(SI._dlt_load_id::DOUBLE) AS _dlt_load_time
 FROM stock_data.stock_info__company_officers AS CO
 LEFT JOIN stock_data.stock_info AS SI
   ON CO._dlt_parent_id = SI._dlt_id
-WHERE
-  TO_TIMESTAMP(_dlt_load_id::DOUBLE) BETWEEN @start_ds AND @end_ds

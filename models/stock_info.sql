@@ -1,11 +1,17 @@
 MODEL (
-  name stock_data_sqlmesh.incremental_stock_info,
-  kind INCREMENTAL_BY_TIME_RANGE (
-    time_column _dlt_load_time
+  name interim.stock_info,
+  kind SCD_TYPE_2_BY_TIME (
+    unique_key symbol,
+    updated_at_name _dlt_load_time
   ),
   grain (
     symbol
-  )
+  ),
+  audits (
+    UNIQUE_VALUES(columns = (symbol)), 
+    NOT_NULL(columns = (symbol))
+  ),
+  cron '@daily'
 );
 
 SELECT
@@ -144,5 +150,3 @@ SELECT
   address2::TEXT AS address2,
   TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS _dlt_load_time
 FROM stock_data.stock_info
-WHERE
-  TO_TIMESTAMP(_dlt_load_id::DOUBLE) BETWEEN @start_ds AND @end_ds
