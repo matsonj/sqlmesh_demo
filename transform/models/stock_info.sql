@@ -147,6 +147,5 @@ SELECT
   trailing_peg_ratio::DOUBLE AS trailing_peg_ratio,
   _dlt_load_id::TEXT AS _dlt_load_id,
   _dlt_id::TEXT AS _dlt_id,
-  address2::TEXT AS address2,
   TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS _dlt_load_time
 FROM stock_data.stock_info
