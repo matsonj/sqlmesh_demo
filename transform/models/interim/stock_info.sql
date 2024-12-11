@@ -8,8 +8,9 @@ MODEL (
     symbol
   ),
   audits (
-    UNIQUE_VALUES(columns = (symbol)), 
-    NOT_NULL(columns = (symbol))
+    NOT_NULL(columns = (
+      symbol
+    ))
   ),
   cron '@daily'
 );

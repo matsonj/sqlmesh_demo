@@ -6,7 +6,6 @@ MODEL (
   ),
   grain (symbol, name),
   audits (
-    UNIQUE_COMBINATION_OF_COLUMNS(columns := (name, symbol)),
     NOT_NULL(columns = (name, symbol))
   ),
   cron '@daily'

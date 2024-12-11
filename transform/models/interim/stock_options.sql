@@ -6,9 +6,6 @@ MODEL (
   ),
   grain (contract_symbol, strike, type, expiration, symbol),
   audits (
-    UNIQUE_VALUES(columns = (
-      contract_symbol
-    )),
     NOT_NULL(columns = (
       contract_symbol
     ))

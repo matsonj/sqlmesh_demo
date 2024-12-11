@@ -8,7 +8,7 @@ MODEL (
     UNIQUE_COMBINATION_OF_COLUMNS(columns := (symbol, trade_date)),
     NOT_NULL(columns = (
       symbol
-    )),
+    ))
   ),
   cron '@daily'
 );
