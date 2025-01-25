@@ -10,7 +10,7 @@ MODEL (
       symbol
     ))
   ),
-  cron '@daily'
+  cron '@daily',
 );
 
 SELECT
@@ -22,6 +22,6 @@ SELECT
   adj_close::DOUBLE AS adj_close,
   volume::BIGINT AS volume,
   symbol::TEXT AS symbol
-FROM stock_data.stock_history
+FROM dlt_test_db.stock_data.stock_history
 WHERE
   trade_date BETWEEN @start_ts AND @end_ts

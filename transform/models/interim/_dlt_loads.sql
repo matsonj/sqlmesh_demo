@@ -1,7 +1,7 @@
 MODEL (
   name interim.full__dlt_loads,
   kind FULL,
-  cron '@daily'
+  cron '@daily',
 );
 
 SELECT
@@ -11,4 +11,4 @@ SELECT
   inserted_at::TIMESTAMP AS inserted_at,
   schema_version_hash::TEXT AS schema_version_hash,
   TO_TIMESTAMP(load_id::DOUBLE) AS _dlt_load_time
-FROM stock_data._dlt_loads
+FROM dlt_test_db.stock_data._dlt_loads

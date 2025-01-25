@@ -5,6 +5,7 @@
     status: BIGINT
     inserted_at: TIMESTAMPTZ
     schema_version_hash: TEXT
+  gateway: prod
 - name: '"dlt_test_db"."stock_data"."stock_history"'
   columns:
     date: TEXT
@@ -17,6 +18,7 @@
     symbol: TEXT
     _dlt_load_id: TEXT
     _dlt_id: TEXT
+  gateway: prod
 - name: '"dlt_test_db"."stock_data"."stock_info"'
   columns:
     address1: TEXT
@@ -151,7 +153,8 @@
     trailing_peg_ratio: DOUBLE
     _dlt_load_id: TEXT
     _dlt_id: TEXT
-    address2: TEXT
+    gross_profits: BIGINT
+  gateway: prod
 - name: '"dlt_test_db"."stock_data"."stock_info__company_officers"'
   columns:
     max_age: BIGINT
@@ -166,24 +169,4 @@
     _dlt_parent_id: TEXT
     _dlt_list_idx: BIGINT
     _dlt_id: TEXT
-- name: '"dlt_test_db"."stock_data"."stock_options"'
-  columns:
-    contract_symbol: TEXT
-    last_trade_date: TIMESTAMPTZ
-    strike: DOUBLE
-    last_price: DOUBLE
-    bid: DOUBLE
-    ask: DOUBLE
-    change: DOUBLE
-    percent_change: DOUBLE
-    open_interest: BIGINT
-    implied_volatility: DOUBLE
-    in_the_money: BOOLEAN
-    contract_size: TEXT
-    currency: TEXT
-    type: TEXT
-    expiration: TEXT
-    symbol: TEXT
-    _dlt_load_id: TEXT
-    _dlt_id: TEXT
-    volume: DOUBLE
+  gateway: prod

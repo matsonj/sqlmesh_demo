@@ -10,7 +10,8 @@ MODEL (
       contract_symbol
     ))
   ),
-  cron '@daily'
+  cron '@daily',
+  enabled false
 );
 
 SELECT
@@ -34,4 +35,4 @@ SELECT
   _dlt_id::TEXT AS _dlt_id,
   volume::DOUBLE AS volume,
   TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS _dlt_load_time
-FROM stock_data.stock_options
+FROM dlt_test_db.stock_data.stock_options

@@ -1,7 +1,8 @@
 MODEL (
   name conformed.price_history,
   kind VIEW,
-  cron '@daily'
+  cron '@daily',
+  -- enabled false
 );
 
 SELECT

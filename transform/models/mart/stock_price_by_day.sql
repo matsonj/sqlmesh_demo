@@ -5,7 +5,8 @@ MODEL (
   audits (
     UNIQUE_COMBINATION_OF_COLUMNS(columns := (trade_date, stock_symbol)),
     NOT_NULL(columns := (trade_date, stock_symbol))
-  )
+  ),
+  -- enabled false
 );
 
 SELECT
@@ -14,7 +15,7 @@ SELECT
   sp.close,
   sp.trade_date,
   ROUND(c.shares_outstanding::REAL * sp.close::REAL, 0) AS market_cap
-FROM conformed.company_info AS c
+FROM dlt_test_db.conformed.company_info AS c
 LEFT JOIN conformed.price_history AS sp
   ON c.symbol = sp.symbol
 ORDER BY

@@ -8,7 +8,8 @@ MODEL (
   audits (
     NOT_NULL(columns = (name, symbol))
   ),
-  cron '@daily'
+  cron '@daily',
+  -- enabled false
 );
 
 SELECT
@@ -24,6 +25,6 @@ SELECT
   SI.symbol::TEXT AS symbol,
   CO._dlt_id::TEXT AS _dlt_id,
   TO_TIMESTAMP(SI._dlt_load_id::DOUBLE) AS _dlt_load_time
-FROM stock_data.stock_info__company_officers AS CO
-LEFT JOIN stock_data.stock_info AS SI
+FROM dlt_test_db.stock_data.stock_info__company_officers AS CO
+LEFT JOIN dlt_test_db.stock_data.stock_info AS SI
   ON CO._dlt_parent_id = SI._dlt_id

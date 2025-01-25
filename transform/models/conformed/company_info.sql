@@ -9,7 +9,8 @@ MODEL (
     )), NOT_NULL(columns = (
       symbol
   ))),
-  cron '@daily'
+  cron '@daily',
+  -- enabled false
 );
 
 SELECT
